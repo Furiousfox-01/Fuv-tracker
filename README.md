@@ -48,3 +48,44 @@ export default tseslint.config({
   },
 })
 ```
+
+## Project Structure
+
+```text
+. 
+├── eslint.config.js
+├── index.html
+├── package.json
+├── package-lock.json
+├── postcss.config.js
+├── public
+├── README.md
+├── src
+│   ├── App.css
+│   ├── App.tsx
+│   ├── assets
+│   ├── components
+│   │   ├── Button.tsx
+│   │   ├── FileList.tsx
+│   │   ├── Footer.tsx
+│   │   └── Header.tsx
+│   ├── features
+│   │   ├── FileHistory.tsx
+│   │   ├── FileUploadFields.tsx
+│   │   └── QuarterSelector.tsx
+│   ├── index.css
+│   ├── main.tsx
+│   ├── pages
+│   │   ├── Dashboard.tsx
+│   │   └── NotFound.tsx
+│   ├── services
+│   │   └── fileService.ts
+│   └── vite-env.d.ts
+├── tailwind.config.js
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
+
+7 directories, 26 files
+```
