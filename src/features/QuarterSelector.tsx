@@ -15,7 +15,7 @@ const QuarterSelector: React.FC<QuarterSelectorProps> = ({
 }) => {
   const years = Array.from({ length: 5 }, (_, i) => `${new Date().getFullYear() - i}`);
   const quarters = ["Q1", "Q2", "Q3", "Q4"];
-  
+
   useEffect(() => {
     console.log("Year: ", selectedYear);
   }, [selectedYear, selectedQuarter]);

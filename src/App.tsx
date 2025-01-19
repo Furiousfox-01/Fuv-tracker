@@ -16,7 +16,7 @@ function App() {
     <>
       <Router>
         <div className="app">
-          {/* Header: Common across all pages */}
+         
           <Header  />
 
           
@@ -27,7 +27,7 @@ function App() {
             </Routes>
           </main>
 
-          {/* Footer: Common across all pages */}
+      
           <div >
           <Footer  />
           </div>
