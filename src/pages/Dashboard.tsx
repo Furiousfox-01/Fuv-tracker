@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { fetchGeneratedFiles } from "../services/fileService";
-// import axios from "axios";
-
+// import { fetchGeneratedFiles } from "../services/fileService";
+import axios from "axios";
+import { API } from "../constants/constant";
 /* ---------------------------- components import --------------------------- */
 import QuarterSelector from "../features/QuarterSelector";
 import FileHistory from "../features/FileHistory";
@@ -22,32 +22,22 @@ const Dashboard: React.FC = () => {
     setShowGenerateOptions(showGenerateOptions => !showGenerateOptions);
   };
 
-
-
   useEffect(() => {
     setIsFileHistoryLoading(true);
-    fetchGeneratedFiles(selectedYear, selectedQuarter).then((data) => {
-      setFiles({ output: data.output, input: data.input });
+    axios.get(API+'/files', {
+      params: {
+        year: selectedYear,
+        batch: selectedQuarter
+      }
+    }).then((response) => {
+      console.log(response)
+      setFiles({ output: response.data.output, input: response.data.input });
+      setIsFileHistoryLoading(false);
+    }).catch((error) => {
+      console.error("Error fetching files:", error);
       setIsFileHistoryLoading(false);
     });
   }, [selectedYear, selectedQuarter]);
-
-  // useEffect(() => {
-  //   setIsFileHistoryLoading(true);
-  //   axios.get('/api/files', {
-  //     params: {
-  //       year: selectedYear,
-  //       batch: selectedQuarter
-  //     }
-  //   }).then((response) => {
-  //     console.log(response)
-  //     setFiles({ output: response.data.output, input: response.data.input });
-  //     setIsFileHistoryLoading(false);
-  //   }).catch((error) => {
-  //     console.error("Error fetching files:", error);
-  //     setIsFileHistoryLoading(false);
-  //   });
-  // }, [selectedYear, selectedQuarter]);
 
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>, field: string) => {
@@ -63,10 +53,19 @@ const Dashboard: React.FC = () => {
     setIsLoading(true);
     alert(uploadedFiles)
     console.log(uploadedFiles)
-    setTimeout(() => {
-      setIsLoading(false);
-      // Add your file generation logic here
-    }, 3000); // Simulate loading for 3 seconds
+    let formData=new FormData()
+    if (uploadedFiles.csiFile) 
+      formData.append("file1", uploadedFiles.csiFile);
+    if(uploadedFiles.textFile)
+    formData.append("file1",uploadedFiles.textFile)
+    axios.post(API+'/upload-files', formData).then((response) => {
+      console.log(response)
+      setFiles({ output: response.data.output, input: response.data.input });
+      setIsFileHistoryLoading(false);
+    }).catch((error) => {
+      console.error("Error fetching files:", error);
+      setIsFileHistoryLoading(false);
+    });
   };
 
   return (
